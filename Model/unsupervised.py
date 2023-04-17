@@ -41,6 +41,25 @@ def log(func):
 
     return wrapper
 
+'''
+The code imports the necessary libraries such as functools, sklearn, torch, numpy, time, random, warnings, and other custom 
+modules from the Model and Utils packages.
+The code defines a decorator function log that logs the execution time of a function. It takes a function as input and returns 
+a wrapped function that logs the execution time before returning the result.
+The code defines a PyTorch module called UnsupervisedGraphSage that inherits from the nn.Module class. This module implements 
+an unsupervised GraphSage model for node embedding learning. It contains several methods such as forward, sigmoid, mse_loss, 
+pos_loss, neg_loss, and loss for computing the cosine similarity scores between node embeddings, calculating various loss 
+functions, and evaluating the model.
+The code defines a function called evaluate that takes the name of the dataset, validation outputs, test labels, validation 
+indices, and a boolean flag roc as input. It prints various evaluation metrics such as ROC AUC score, precision, recall, F1 
+score, macro F1 score, macro recall, macro precision, weighted F1 score, weighted recall, and weighted precision.
+The code defines a class called RarePredictor that represents a rare category predictor. It takes various input parameters 
+such as feature data, binary labels, multi-class labels, adjacency lists, feature dimension, number of encoder layers, encoder 
+dimension, number of negative samples, training and testing indices, positive and negative sample numbers, attention flag, weights 
+flag, weights, CUDA flag, number of walk length, and number of walks as input. It contains methods for initializing the model, 
+training the model, generating embeddings, and predicting rare categories. It also contains methods for generating negative samples,
+constructing walks, and updating the embeddings.
+'''
 
 class UnsupervisedGraphSage(nn.Module):
     def __init__(self, enc):
