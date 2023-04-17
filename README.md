@@ -8,5 +8,6 @@ brew install python3
 pip3 install pytorch
 pip3 install numpy
 pip3 install -U scikit-learn scipy matplotlib
-```shell script
+```
 
+dfsdf
