@@ -32,7 +32,16 @@ def log(func):
 
     return wrapper
 
-
+'''
+The code is a implementation of a diseases classifier using a neural network in PyTorch, with options for binary or multi-class classification.
+It includes imports of necessary libraries such as torch, numpy, sklearn, and time, as well as custom modules for encoders and aggregators.
+The main class DiseasesClassifier extends nn.Module and includes methods for forward propagation, loss calculation, and evaluation using 
+various metrics such as precision, recall, and F1-score.
+The DiseasesPredictor class initializes and sets up the parameters for training and testing the classifier, including handling rare labels, 
+setting up feature embeddings, and storing adjacency information.
+The code also includes utility functions such as log for timing execution, and evaluate for calculating and printing evaluation metrics on 
+test data, including ROC-AUC, precision-recall, and macro- and weighted-average F1, recall, and precision scores.
+'''
 class DiseasesClassifier(nn.Module):
 
     def __init__(self, num_classes, enc):
