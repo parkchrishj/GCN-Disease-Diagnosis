@@ -39,5 +39,5 @@ pip3 install -U scikit-learn scipy matplotlib
 
 ## Run Model
 ```shell script
-python run_multi.py
+python3 run_multi.py
 ```
