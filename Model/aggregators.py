@@ -9,7 +9,11 @@ import random
 from torch.nn import init
 
 """
-Set of modules for aggregating embeddings of neighbors.
+The type of embedding created by the MeanAggregator module is called a "neighborhood aggregation embedding". 
+It aggregates the embeddings of neighboring nodes by taking the mean of their embeddings, and uses this 
+aggregated embedding as the embedding for the central node. This approach allows capturing information from
+the local neighborhood of a node in a graph, which can be useful for tasks such as node classification, 
+link prediction, and graph representation learning.
 """
 
 
