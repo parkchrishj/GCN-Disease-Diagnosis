@@ -2,6 +2,7 @@
 
 ## Requirement
 Running on Mac OS 11.6.3 (My device)
+
 '''shell script
 brew install python3
 pip3 install pytorch
