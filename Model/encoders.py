@@ -8,6 +8,10 @@ from Model.mlp import MLP
 class Encoder(nn.Module):
     """
     Encodes a node's using 'convolutional' GraphSage approach
+    implementation of the GraphSage encoder, a "convolutional" approach for encoding node features in graph neural networks. 
+    It takes in node features, feature dimensions, embedding dimensions, adjacency lists, aggregator, and other parameters 
+    as input. It uses multi-layer perceptrons (MLPs) with batch normalization and ReLU activation functions to process the 
+    node features and generate embeddings.
     """
 
     def __init__(self, features, feature_dim,
@@ -16,6 +20,22 @@ class Encoder(nn.Module):
                  base_model=None, gcn=False, cuda=False,
                  kernel="GCN",
                  feature_transform=False):
+        """
+        Constructor for the Encoder class.
+
+        Args:
+        - features (nn.Module): Feature module that maps node ids to their corresponding feature representations
+        - feature_dim (int): Dimension of input feature embeddings
+        - embed_dim (int): Dimension of output embeddings for nodes
+        - adj_lists (dictionary): Dictionary containing adjacency lists for each node in the graph
+        - aggregator (nn.Module): Aggregator module that performs neighborhood aggregation
+        - num_sample (int): Number of neighbors to sample during aggregation (default: 10)
+        - base_model (nn.Module): Base model to be used for aggregation (default: None)
+        - gcn (bool): Whether to use Graph Convolutional Networks (GCN) for aggregation (default: False)
+        - cuda (bool): Whether to use GPU for computation (default: False)
+        - kernel (str): Type of kernel to use for aggregation (options: "GCN", "GIN", "GAT") (default: "GCN")
+        - feature_transform (bool): Whether to apply feature transformation (default: False)
+        """
         super(Encoder, self).__init__()
 
         self.features = features
