@@ -2,7 +2,17 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-###MLP with lienar output
+'''
+MLP with lienar output
+The module has two modes of operation: linear and multi-layer. If num_layers is set to 1, the module functions as a linear model, 
+using a single nn.Linear layer to produce the output. Otherwise, if num_layers is greater than 1, the module functions as an MLP with 
+multiple hidden layers. The nn.Linear and nn.BatchNorm1d modules are used to define the linear layers and batch normalization layers 
+in the MLP. The nn.ModuleList is used to store the linear layers and batch normalization layers as a list, allowing for easy access 
+during forward pass. The forward method implements the forward pass of the MLP. If the module is operating in linear mode, it simply 
+applies the linear layer to the input features x and returns the output. Otherwise, if the module is operating in multi-layer mode, 
+it applies ReLU activation and batch normalization to the hidden layers, and then applies the final linear layer to produce the output.
+'''
+
 class MLP(nn.Module):
     def __init__(self, num_layers, input_dim, hidden_dim, output_dim):
         '''
