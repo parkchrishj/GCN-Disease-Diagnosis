@@ -1,6 +1,10 @@
 # GCN-Disease-Diagnosis
 
-## Requirement
+## Original Paper Citation
+Zhenchao Sun, Hongzhi Yin, Hongxu Chen, Tong Chen, Lizhen Cui, and Fan Yang. 2020. Disease prediction via graph neural networks. IEEE Journal of Biomedical and Health Informatics, 25(3):818–826.
+
+
+## Requirement & Dependencies
 Running on Mac OS 11.6.3 (My device)
 
 ```shell script
