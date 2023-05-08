@@ -46,5 +46,6 @@ python3 run_multi.py #running a model as an example
 ```
 
 ### Result Table
-https://github.com/parkchrishj/GCN-Disease-Diagnosis/blob/main/model_result.png
-
+<p align="center">
+  <img src="model_result.png" width="450" title="hover text">
+</p>
