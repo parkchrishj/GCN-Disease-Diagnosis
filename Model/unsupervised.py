@@ -27,7 +27,8 @@ import sklearn.exceptions
 
 from Utils.RARE_INFO import RareInfo
 
-warnings.filterwarnings("ignore", category=sklearn.exceptions.UndefinedMetricWarning)
+warnings.filterwarnings(
+    "ignore", category=sklearn.exceptions.UndefinedMetricWarning)
 
 
 def log(func):
@@ -41,25 +42,6 @@ def log(func):
 
     return wrapper
 
-'''
-The code imports the necessary libraries such as functools, sklearn, torch, numpy, time, random, warnings, and other custom 
-modules from the Model and Utils packages.
-The code defines a decorator function log that logs the execution time of a function. It takes a function as input and returns 
-a wrapped function that logs the execution time before returning the result.
-The code defines a PyTorch module called UnsupervisedGraphSage that inherits from the nn.Module class. This module implements 
-an unsupervised GraphSage model for node embedding learning. It contains several methods such as forward, sigmoid, mse_loss, 
-pos_loss, neg_loss, and loss for computing the cosine similarity scores between node embeddings, calculating various loss 
-functions, and evaluating the model.
-The code defines a function called evaluate that takes the name of the dataset, validation outputs, test labels, validation 
-indices, and a boolean flag roc as input. It prints various evaluation metrics such as ROC AUC score, precision, recall, F1 
-score, macro F1 score, macro recall, macro precision, weighted F1 score, weighted recall, and weighted precision.
-The code defines a class called RarePredictor that represents a rare category predictor. It takes various input parameters 
-such as feature data, binary labels, multi-class labels, adjacency lists, feature dimension, number of encoder layers, encoder 
-dimension, number of negative samples, training and testing indices, positive and negative sample numbers, attention flag, weights 
-flag, weights, CUDA flag, number of walk length, and number of walks as input. It contains methods for initializing the model, 
-training the model, generating embeddings, and predicting rare categories. It also contains methods for generating negative samples,
-constructing walks, and updating the embeddings.
-'''
 
 class UnsupervisedGraphSage(nn.Module):
     def __init__(self, enc):
@@ -95,7 +77,8 @@ class UnsupervisedGraphSage(nn.Module):
         for u in nodes_u:
             embed_u = self.enc([u])
             embed_negs = self.enc(list(neg_samples[u]))
-            scores = nn.functional.cosine_similarity(embed_u.t(), embed_negs.t())
+            scores = nn.functional.cosine_similarity(
+                embed_u.t(), embed_negs.t())
             neg_loss += self.logSig(torch.mean(-scores))
         return neg_loss
 
@@ -109,10 +92,12 @@ def evaluate(data_name, val_output, test_labels, val, roc=True):
     print("%s: " % data_name)
 
     if roc:
-        fpr, tpr, threshold = roc_curve(test_labels[val], val_output.data.numpy().argmax(axis=1))  # 计算真正率和假正率
+        fpr, tpr, threshold = roc_curve(
+            test_labels[val], val_output.data.numpy().argmax(axis=1))  # 计算真正率和假正率
         roc_auc = auc(fpr, tpr)  # 计算auc的值
         # print('roc_auc:', roc_auc)
-        print("roc_auc_score:", roc_auc_score(test_labels[val], val_output.data.numpy().max(axis=1)))
+        print("roc_auc_score:", roc_auc_score(
+            test_labels[val], val_output.data.numpy().max(axis=1)))
 
     print("Precision - Recall - F1 score:")
     print(sklearn.metrics.precision_recall_fscore_support(test_labels[val],
@@ -155,7 +140,8 @@ class RarePredictor:
         self.N_WALKS = N_WALKS
 
         # self.train = [i for i in np.where((m_labels < RareInfo().OTHERS))[0].squeeze() if i in self.train]
-        self.test = [i for i in np.where((m_labels < RareInfo().OTHERS))[0].squeeze() if i in self.test]
+        self.test = [i for i in np.where((m_labels < RareInfo().OTHERS))[
+            0].squeeze() if i in self.test]
 
         self.multi_train = [i for i in np.where(
             (m_labels > RareInfo().NON_RARE) & (m_labels < RareInfo().OTHERS))[0].squeeze() if i in self.train]
@@ -164,7 +150,8 @@ class RarePredictor:
         # print(np.where((m_labels > 0) & (m_labels < 4))[0].squeeze())
 
         self.b_labels = b_labels  # labels for the first step prediction
-        self.m_labels = m_labels  # labels for the multi-classification (the 2nd step)
+        # labels for the multi-classification (the 2nd step)
+        self.m_labels = m_labels
 
         self.bi_class_num = 2
         self.multi_class_num = RareInfo().RARE
@@ -172,8 +159,10 @@ class RarePredictor:
         # self.multi_class_num = len(set(list(m_labels.squeeze())))
         # print(set(list(m_labels.squeeze())))
 
-        self.features = nn.Embedding(len(feat_data), feature_dim)  # nodes' features (random setting)
-        self.features.weight = nn.Parameter(torch.FloatTensor(feat_data), requires_grad=False)
+        # nodes' features (random setting)
+        self.features = nn.Embedding(len(feat_data), feature_dim)
+        self.features.weight = nn.Parameter(
+            torch.FloatTensor(feat_data), requires_grad=False)
         self.adj_lists = adj_lists  # edges' information
 
         # model parameters
@@ -199,11 +188,13 @@ class RarePredictor:
 
         # build aggregator and encoders
         # default: transductive setting
-        self.agg1 = MeanAggregator(self.features, cuda=self.cuda, attention=attention)
+        self.agg1 = MeanAggregator(
+            self.features, cuda=self.cuda, attention=attention)
         self.enc1 = Encoder(self.features, feature_dim, train_enc_dim[0], adj_lists, self.agg1, gcn=True,
                             cuda=self.cuda)
 
-        self.agg2 = MeanAggregator(lambda nodes: self.enc1(nodes).t(), cuda=self.cuda, attention=attention)
+        self.agg2 = MeanAggregator(lambda nodes: self.enc1(
+            nodes).t(), cuda=self.cuda, attention=attention)
         self.enc2 = Encoder(lambda nodes: self.enc1(nodes).t(), self.enc1.embed_dim, train_enc_dim[1], adj_lists,
                             self.agg2, base_model=self.enc1, gcn=True, cuda=self.cuda)
 
@@ -230,8 +221,10 @@ class RarePredictor:
             far_nodes = set(self.train) - neighbors
             node_neg_samples = random.sample(far_nodes, self.neg_samp_num) if self.neg_samp_num < len(
                 far_nodes) else far_nodes
-            negative_pairs.extend([(node, neg_node) for neg_node in node_neg_samples])
-            node_negative_pairs[node] = [(node, neg_node) for neg_node in node_neg_samples]
+            negative_pairs.extend([(node, neg_node)
+                                  for neg_node in node_neg_samples])
+            node_negative_pairs[node] = [(node, neg_node)
+                                         for neg_node in node_neg_samples]
             neg_samples[node] = node_neg_samples
         return neg_samples
 
@@ -249,8 +242,10 @@ class RarePredictor:
         else:  # elif self.train_enc_num == 2:
             model = UnsupervisedGraphSage(self.enc2)
 
-        optimizer = torch.optim.SGD(filter(lambda p: p.requires_grad, model.parameters()), lr=lr)
-        optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=lr, betas=(0.9, 0.99))
+        optimizer = torch.optim.SGD(
+            filter(lambda p: p.requires_grad, model.parameters()), lr=lr)
+        optimizer = torch.optim.Adam(
+            filter(lambda p: p.requires_grad, model.parameters()), lr=lr, betas=(0.9, 0.99))
         times = []
 
         for batch in range(loop_num):
