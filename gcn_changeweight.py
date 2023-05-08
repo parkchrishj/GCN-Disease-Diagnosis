@@ -20,7 +20,7 @@ test = pickle.load(open(file_path + ".test.pkl", "rb"))
 
 multi_class_num = 108
 feature_dim = 10000
-epoch = 80
+epoch = 800
 batch_num = 10
 lr = 0.3
 feat_data = np.random.random((50000, feature_dim))
