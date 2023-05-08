@@ -10,7 +10,7 @@ https://github.com/zhchs/Disease-Prediction-via-GCN
 Running on Mac OS 11.6.3 (My device)
 
 ```shell script
-git clone 
+git clone https://github.com/parkchrishj/GCN-Disease-Diagnosis.git
 brew install python3
 pip3 install pytorch
 pip3 install numpy
