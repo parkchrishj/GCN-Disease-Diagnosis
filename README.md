@@ -1,10 +1,10 @@
 # GCN-Disease-Diagnosis
 
-## Original Paper Citation
+### Original Paper Citation
 Zhenchao Sun, Hongzhi Yin, Hongxu Chen, Tong Chen, Lizhen Cui, and Fan Yang. 2020. Disease prediction via graph neural networks. IEEE Journal of Biomedical and Health Informatics, 25(3):818–826.
 
 
-## Requirement & Dependencies
+### Requirement & Dependencies
 Running on Mac OS 11.6.3 (My device)
 
 ```shell script
@@ -14,7 +14,7 @@ pip3 install numpy
 pip3 install -U scikit-learn scipy matplotlib
 ```
 
-## data format
+### data format
 ```shell script
 "filename.nodes.pkl"
 # list of node: [node1(str), node2(str), node3(str), ...]
@@ -41,7 +41,7 @@ pip3 install -U scikit-learn scipy matplotlib
 # list of nodes for testing, [node_idx_1(int), node_idx_2(int), ....]
 ```
 
-## Run Model
+### Run Model
 ```shell script
 python3 run_multi.py
 ```
