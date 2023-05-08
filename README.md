@@ -15,7 +15,7 @@ brew install python3
 pip3 install pytorch
 pip3 install numpy
 pip3 install -U scikit-learn scipy matplotlib
-python3 run_multi.py #as an example
+python3 run_multi.py #running a model as an example
 ```
 
 ### data format
@@ -45,7 +45,6 @@ python3 run_multi.py #as an example
 # list of nodes for testing, [node_idx_1(int), node_idx_2(int), ....]
 ```
 
-### Run Model
-```shell script
-python3 run_multi.py
-```
+### Result Table
+(images/model_result.png)
+
