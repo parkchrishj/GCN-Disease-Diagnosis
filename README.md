@@ -46,5 +46,5 @@ python3 run_multi.py #running a model as an example
 ```
 
 ### Result Table
-(images/model_result.png)
+![Pods state before run](images/model_result.png)
 
